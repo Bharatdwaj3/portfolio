@@ -1,0 +1,39 @@
+name: portfolio
+
+services:
+  db:
+    image: mongo:latest
+    container_name: portfolio-mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
+      MONGO_INITDB_DATABASE: ${MONGO_DB}
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build: ./backend
+    container_name: portfolio-backend
+    env_file:
+      - .env
+    image: portfolio-backend
+    ports:
+      - "9000:9000"
+    command: node server.js
+    depends_on:
+      - db
+
+  portui:
+    build: .
+    container_name: portfolio-ui
+    image: portui
+    ports:
+      - "9010:4321"
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:

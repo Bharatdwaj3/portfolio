@@ -1,0 +1,24 @@
+---
+// src/pages/404.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="404 — Not Found">
+  <main class="min-h-screen flex items-center justify-center px-6 bg-surface">
+    <div class="text-center max-w-md">
+      <p class="text-[11px] font-black uppercase tracking-[0.5em] text-accent mb-4">404</p>
+      <h1 class="text-4xl font-black text-white mb-4">Page not found</h1>
+      <p class="text-gray-400 mb-10 leading-relaxed">
+        Whatever you were looking for either moved, got renamed, or never
+        existed in the first place.
+      </p>
+      
+      <a
+        href="/"
+        class="inline-flex items-center gap-2 bg-accent text-black text-xs font-black uppercase tracking-widest px-6 py-3 rounded-full hover:opacity-90 transition-opacity"
+      >
+        Back to projects
+      </a>
+    </div>
+  </main>
+</Layout>

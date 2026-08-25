@@ -1,0 +1,53 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { fetchProject } from "../../util/api";
+
+const { name } = Astro.params;
+const project = await fetchProject(name as string);
+---
+<Layout title={`${project.name} | My Portfolio`}>
+  <main class="pt-32 pb-16 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="bg-panel rounded-2xl p-8 grid md:grid-cols-2 gap-8 items-center">
+        <div>
+          <h4 class="text-2xl font-bold mb-3">{project.name}</h4>
+          <p class="text-gray-400 mb-2">{project.description}</p>
+          {project.caseStudy && <p class="text-gray-400 mb-4">{project.caseStudy}</p>}
+          <div class="flex gap-4">
+            <a
+              href={project.htmlUrl}
+              target="_blank"
+              rel="noreferrer"
+              class="inline-block bg-accent text-white rounded-full px-6 py-3 text-sm hover:bg-white hover:text-accent transition-colors"
+            >
+              View on GitHub
+            </a>
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noreferrer"
+                class="inline-block border border-accentDark text-accentDark rounded-full px-6 py-3 text-sm hover:bg-white transition-colors"
+              >
+                View Live Demo
+              </a>
+            )}
+          </div>
+        </div>
+        <ul class="bg-surface rounded-2xl p-6 space-y-4">
+          <li class="border-b border-gray-700 pb-3 flex justify-between">
+            <span>Language</span><span class="text-accentDark">{project.language}</span>
+          </li>
+          <li class="border-b border-gray-700 pb-3 flex justify-between">
+            <span>Stars</span><span class="text-accentDark">{project.stars}</span>
+          </li>
+          {project.deploymentStatus && (
+            <li class="pb-0 flex justify-between">
+              <span>Deployment</span><span class="text-accentDark">{project.deploymentStatus}</span>
+            </li>
+          )}
+        </ul>
+      </div>
+    </div>
+  </main>
+</Layout>

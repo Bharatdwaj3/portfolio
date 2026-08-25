@@ -1,0 +1,51 @@
+---
+// src/components/Footer.astro
+const footerLinks = [
+  { title: 'Site', links: [{ label: 'Projects', href: '/' }, { label: 'Skills', href: '/skills' }, { label: 'About', href: '/about' }] },
+  { title: 'Connect', links: [{ label: 'GitHub', href: 'https://github.com/' }, { label: 'LinkedIn', href: 'https://linkedin.com/' }, { label: 'Contact', href: '/contact' }] },
+];
+---
+
+<footer class="bg-black/60 pt-16 pb-8 px-6 text-white relative overflow-hidden">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid grid-cols-12 gap-10 mb-14">
+      <div class="col-span-12 md:col-span-4">
+        <a href="/" class="text-lg font-semibold mb-4 inline-block">
+          <em class="text-accent not-italic">My</em> Portfolio
+        </a>
+        <p class="text-gray-400 text-sm leading-relaxed max-w-xs mt-2">
+          Projects, skills, and write-ups — pulled live and kept current.
+        </p>
+      </div>
+
+      <div class="col-span-12 md:col-span-5 grid grid-cols-2 gap-8">
+        {footerLinks.map((group) => (
+          <div>
+            <h4 class="text-accent text-[11px] font-black uppercase tracking-[0.3em] mb-5">{group.title}</h4>
+            <ul class="space-y-3">
+              {group.links.map((link) => (
+                <li>
+                  <a href={link.href} class="text-gray-400 hover:text-white text-sm transition-colors">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <div class="col-span-12 md:col-span-3">
+        <h4 class="text-accent text-[11px] font-black uppercase tracking-[0.3em] mb-5">Get in touch</h4>
+        <form action="/contact" class="relative">
+          <input type="email" placeholder="Email" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-accent text-sm text-white placeholder:text-gray-500" />
+          <button type="submit" class="absolute right-1.5 top-1.5 bottom-1.5 bg-accent text-black px-3 rounded-lg font-bold text-xs uppercase">Send</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="pt-8 border-t border-white/10 text-[10px] font-bold uppercase tracking-widest text-gray-500 text-center md:text-left">
+      © 2026. Built with Astro.
+    </div>
+  </div>
+</footer>
