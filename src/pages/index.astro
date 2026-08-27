@@ -80,6 +80,79 @@ const heroProjects = (await fetchProjects()).slice(0, 5);
         </div>
         </Reveal>
       </section>
+    <!-- How I Work -->
+    <section id="process" class="py-24 px-6 bg-panel">
+      <Reveal client:visible>
+      <div class="max-w-6xl mx-auto">
+        <div class="relative bg-surface rounded-3xl p-8 md:p-16 overflow-hidden">
+          <div class="absolute -right-20 -top-20 w-[550px] h-[550px] rounded-full bg-accent/5 pointer-events-none"></div>
+
+          <div class="relative max-w-sm space-y-4 mb-16">
+            <span class="text-[11px] font-bold tracking-wider text-accent uppercase">
+              How I Work
+            </span>
+            <h2 class="text-3xl md:text-4xl font-extrabold leading-tight">
+              A clear process, built around you
+            </h2>
+            <p class="text-sm text-gray-400 leading-relaxed">
+              From first call to launch day, you'll always know what's happening and why.
+            </p>
+            <a href="#contact" class="inline-block bg-accent text-black text-xs font-semibold px-6 py-3 rounded-full hover:opacity-90 transition-opacity">
+              Start a Project
+            </a>
+          </div>
+
+          <div class="relative w-full h-[320px] mt-8">
+            <svg class="absolute inset-0 w-full h-full overflow-visible pointer-events-none" viewBox="0 0 1000 300" preserveAspectRatio="none">
+              <path
+                d="M 50 140 C 120 190, 170 200, 250 200 C 370 200, 400 135, 520 135 C 640 135, 680 15, 800 15 L 860 15"
+                fill="none" stroke="var(--color-accent)" stroke-width="4" stroke-linecap="round" opacity="0.6"
+              />
+            </svg>
+
+            <div class="absolute left-[12%] top-[140px] md:left-[15%] md:top-[150px] flex flex-col items-center">
+              <div class="relative w-8 h-8 rounded-full bg-panel shadow-md flex items-center justify-center -translate-y-1/2">
+                <div class="w-2.5 h-2.5 rounded-full bg-accent"></div>
+              </div>
+              <div class="relative mt-2 text-left w-56">
+                <span class="absolute -top-10 left-12 text-7xl font-extrabold text-white/5 select-none -z-10">1</span>
+                <h3 class="text-xs font-bold text-white mb-1">Discovery Call</h3>
+                <p class="text-[11px] text-gray-400 leading-snug">
+                  We talk through your goals, scope, and timeline to make sure we're aligned from day one.
+                </p>
+              </div>
+            </div>
+
+            <div class="absolute left-[45%] top-[75px] md:left-[47%] md:top-[85px] flex flex-col items-center">
+              <div class="relative w-8 h-8 rounded-full bg-panel shadow-md flex items-center justify-center -translate-y-1/2">
+                <div class="w-2.5 h-2.5 rounded-full bg-accent"></div>
+              </div>
+              <div class="relative mt-2 text-left w-56">
+                <span class="absolute -top-6 left-16 text-8xl font-extrabold text-white/5 select-none -z-10">2</span>
+                <h3 class="text-xs font-bold text-white mb-1">Design &amp; Build</h3>
+                <p class="text-[11px] text-gray-400 leading-snug">
+                  I design and develop in focused sprints, sharing progress so you always know where things stand.
+                </p>
+              </div>
+            </div>
+
+            <div class="absolute left-[72%] top-[-45px] md:left-[75%] md:top-[-35px] flex flex-col items-center">
+              <div class="relative w-8 h-8 rounded-full bg-panel shadow-md flex items-center justify-center -translate-y-1/2">
+                <div class="w-2.5 h-2.5 rounded-full bg-accent"></div>
+              </div>
+              <div class="relative mt-2 text-left w-56">
+                <span class="absolute -top-4 left-16 text-8xl font-extrabold text-white/5 select-none -z-10">3</span>
+                <h3 class="text-xs font-bold text-white mb-1">Launch &amp; Support</h3>
+                <p class="text-[11px] text-gray-400 leading-snug">
+                  Once it's live, I stick around for fixes, tweaks, and support as your project grows.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </Reveal>
+    </section>
     <!-- Projects -->
     <section id="projects" class="py-24 px-6 bg-panel">
       <Reveal client:visible>
