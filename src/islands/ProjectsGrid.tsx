@@ -35,6 +35,7 @@ function Grid() {
               description={project.description}
               language={project.language}
               stars={project.stars}
+              topics={project.topics}
             />
           </motion.div>
         ))}

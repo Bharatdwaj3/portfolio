@@ -47,6 +47,7 @@ export async function sendMessage(payload: ContactMessage): Promise<Response> {
 }
 // --- Projects ---
 export interface Project {
+  topics: string[];
   name: string;
   description: string;
   language: string;
