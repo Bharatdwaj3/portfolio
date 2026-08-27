@@ -4,53 +4,82 @@ import Layout from "../layouts/Layout.astro";
 import ProjectsGrid from "../islands/ProjectsGrid";
 import ContactForm from "../islands/ContactForm";
 import Reveal from "../islands/Reveal";
-import { fetchProfile, fetchTestimonials } from "../util/api";
+import { fetchProfile, fetchTestimonials, fetchProjects } from "../util/api";
 import { fetchSkills } from "../util/api";
 
 const profile = await fetchProfile();
 const testimonials = await fetchTestimonials();
 const skills = await fetchSkills();
+
+const skillsByCategory = skills.reduce((acc, skill) => {
+  const key = skill.category || "Other";
+  if (!acc[key]) acc[key] = [];
+  acc[key].push(skill);
+  return acc;
+}, {});
+
+const heroProjects = (await fetchProjects()).slice(0, 5);
 ---
 
 <Layout title="My Portfolio">
   <main>
       <!-- Hero -->
-      <section id="home" class="min-h-[calc(100vh-4rem)] flex items-center px-6 bg-surface">
+      <section id="home" class="relative min-h-[calc(100vh-4rem)] flex items-center px-6 overflow-hidden">
+        <div class="absolute inset-0 -z-10">
+          <img
+            src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=2000&q=80"
+            alt=""
+            class="w-full h-full object-cover object-center"
+          />
+          <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/70"></div>
+        </div>
         <Reveal client:visible>
         <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div class="lg:col-span-7 text-left">
+            <div class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-1.5 text-xs text-gray-200 mb-6">
+              <span class="bg-white text-gray-900 font-semibold px-2 py-0.5 rounded-full text-[10px]">Open</span>
+              <span>Available for Freelance Work</span>
+            </div>
             <h5 class="text-accent font-medium mb-4 uppercase tracking-widest text-sm">
               {profile.headline}
             </h5>
-            <h1 class="font-black mb-6 leading-tight" style="font-size: clamp(2.5rem, 5vw, 4.5rem);">
+            <h1 class="font-script font-bold mb-6 leading-tight" style="font-size: clamp(3rem, 6vw, 5.5rem);">
               {profile.fullName}
             </h1>
-            <p class="text-gray-400 max-w-xl mb-8 leading-relaxed">{profile.bio}</p>
+            <p class="text-gray-300 max-w-xl mb-8 leading-relaxed">{profile.bio}</p>
             <div class="flex flex-wrap items-center gap-4">
-              <a href="#projects" class="bg-accent text-black text-sm font-black uppercase tracking-widest px-6 py-3 rounded-full hover:opacity-90 transition-opacity">
+              <a href="#projects" class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md border border-white/30 text-white hover:bg-white hover:text-gray-900 px-6 py-3 rounded-full text-sm font-medium transition-all">
                 View Projects
               </a>
               {profile.resumeUrl && (
                 <a
+                
                   href={profile.resumeUrl}
                   target="_blank"
                   rel="noreferrer"
-                  class="border border-accentDark text-accentDark rounded-full px-6 py-3 text-sm hover:bg-white hover:text-accent transition-colors"
+                  class="border border-white/40 text-white rounded-full px-6 py-3 text-sm hover:bg-white hover:text-gray-900 transition-colors"
                 >
                   Download Resume
                 </a>
               )}
             </div>
           </div>
-          <div class="lg:col-span-5 hidden lg:block">
-            <div class="relative aspect-square rounded-3xl overflow-hidden" style="background: radial-gradient(circle at 30% 30%, rgba(231,94,141,0.35), transparent 60%), radial-gradient(circle at 70% 70%, rgba(236,96,144,0.25), transparent 55%), #1f2122;">
-              <div class="absolute inset-0" style="background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 32px 32px;"></div>
-            </div>
+          <div class="lg:col-span-5 hidden lg:flex flex-col items-end gap-4 pr-4">
+            {heroProjects.map((project) => (
+              <div class="flex items-center gap-4">
+                <div class="text-right">
+                  <h3 class="font-script text-xl leading-none font-bold text-white">{project.name}</h3>
+                  <p class="text-[11px] text-gray-300">{project.language}</p>
+                </div>
+                <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-white/60 bg-accent/80 flex items-center justify-center shadow-lg shrink-0">
+                  <span class="text-white font-bold text-lg uppercase">{project.name.slice(0, 2)}</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
         </Reveal>
       </section>
-
     <!-- Projects -->
     <section id="projects" class="py-24 px-6 bg-panel">
       <Reveal client:visible>
@@ -67,22 +96,25 @@ const skills = await fetchSkills();
         <h4 class="text-2xl font-bold mb-8">
           <em class="text-accentDark not-italic">My</em> Skills
         </h4>
-        <ul class="bg-panel rounded-2xl p-8 space-y-4">
-          {skills.map((skill) => (
-            <li class="flex justify-between border-b border-gray-700 pb-3 last:border-0">
-              <span>{skill.name}</span>
-              <span class="text-sm text-gray-400">
-                {skill.category} · {skill.level}
-                {skill.projectCount > 0 && ` · ${skill.projectCount} projects`}
-              </span>
-            </li>
+        <div class="bg-panel rounded-2xl p-8 space-y-8">
+          {Object.entries(skillsByCategory).map(([category, categorySkills]) => (
+            <div>
+              <h5 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-3">{category}</h5>
+              <div class="flex flex-wrap gap-2">
+                {categorySkills.map((skill) => (
+                  <span class="text-sm bg-surface border border-gray-700 rounded-full px-4 py-2">
+                    {skill.name}
+                  </span>
+                ))}
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
       </Reveal>
     </section>
 
-    <!-- About + Testimonials -->
+    <!-- About -->
     <section id="about" class="py-24 px-6 bg-panel">
       <Reveal client:visible>
       <div class="max-w-6xl mx-auto">
@@ -106,29 +138,34 @@ const skills = await fetchSkills();
             ))}
           </ul>
         </div>
-
-        {testimonials.length > 0 && (
-          <div class="mt-12 pt-8 border-t border-gray-700">
-            <h4 class="text-2xl font-bold mb-6">
-              <em class="text-accentDark not-italic">What</em> Clients Say
-            </h4>
-            <div class="grid md:grid-cols-2 gap-6">
-              {testimonials.map((testimonial) => (
-                <div class="bg-surface rounded-2xl p-6">
-                  <p class="text-gray-300 mb-4">"{testimonial.quote}"</p>
-                  <h4 class="text-sm font-semibold">{testimonial.clientName}</h4>
-                  <span class="text-xs text-gray-500">{testimonial.clientRole}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
       </Reveal>
     </section>
 
+    <!-- Testimonials -->
+    {testimonials.length > 0 && (
+      <section id="testimonials" class="py-24 px-6 bg-surface">
+        <Reveal client:visible>
+        <div class="max-w-6xl mx-auto">
+          <h4 class="text-2xl font-bold mb-8">
+            <em class="text-accentDark not-italic">What</em> Clients Say
+          </h4>
+          <div class="grid md:grid-cols-2 gap-6">
+            {testimonials.map((testimonial) => (
+              <div class="bg-panel rounded-2xl p-6">
+                <p class="text-gray-300 mb-4">"{testimonial.quote}"</p>
+                <h4 class="text-sm font-semibold">{testimonial.clientName}</h4>
+                <span class="text-xs text-gray-500">{testimonial.clientRole}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        </Reveal>
+      </section>
+    )}
+
     <!-- Contact -->
-    <section id="contact" class="py-24 px-6 bg-surface">
+    <section id="contact" class="py-24 px-6 bg-panel">
       <Reveal client:visible>
       <div class="max-w-2xl mx-auto text-center mb-12">
         <h4 class="text-2xl font-bold">

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap");
 
 @theme {
   --color-surface: #27292a;
@@ -10,4 +11,8 @@
 body {
   background-color: var(--color-surface);
   color: white;
+}
+
+.font-script {
+  font-family: 'Caveat', cursive;
 }
