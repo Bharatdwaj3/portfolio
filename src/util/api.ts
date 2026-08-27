@@ -20,10 +20,10 @@ export interface Testimonial {
 }
 
 export interface ContactMessage {
-  senderName: string;
+  senderName?: string;
   senderEmail: string;
-  subject: string;
-  message: string;
+  subject?: string;
+  message?: string;
 }
 
 export async function fetchProfile(): Promise<ProfileData> {

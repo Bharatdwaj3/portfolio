@@ -1,13 +1,15 @@
 const Message = require('../models/messageModel');
 const { sendNewMessageNotification } = require('../services/emailService');
 
-// Public: a visitor submits the contact form.
+// Public: a visitor submits the contact form. Only email is required -
+// name, subject, and message are optional so the newsletter-style
+// single-field form can still trigger a real message to the owner.
 const submitMessage = async (req, res) => {
     try {
         const { senderName, senderEmail, subject, message } = req.body;
 
-        if (!senderName || !senderEmail || !message) {
-            return res.status(400).json({ message: 'name, email, and message are required' });
+        if (!senderEmail) {
+            return res.status(400).json({ message: 'email is required' });
         }
 
         const saved = await Message.create({ senderName, senderEmail, subject, message });

@@ -8,22 +8,16 @@ import { motion } from "framer-motion";
 
 function Form() {
   const lastVisitedProject = useAppSelector((state) => state.navigation.lastVisitedProject);
-  const [senderName, setSenderName] = useState("");
   const [senderEmail, setSenderEmail] = useState("");
-  const [subject, setSubject] = useState("");
-  const [message, setMessage] = useState("");
   const [statusMessage, setStatusMessage] = useState("");
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     try {
-      const response = await sendMessage({ senderName, senderEmail, subject, message });
+      const response = await sendMessage({ senderEmail });
       if (response.ok) {
-        setStatusMessage("Message sent, thank you! I'll get back to you soon.");
-        setSenderName("");
+        setStatusMessage("Thanks! I'll be in touch soon.");
         setSenderEmail("");
-        setSubject("");
-        setMessage("");
       } else if (response.status === 429) {
         setStatusMessage("Too many messages sent. Please try again later.");
       } else {
@@ -37,61 +31,27 @@ function Form() {
 
   return (
     <div className="bg-white/5 shadow-xl rounded-lg px-8 py-12 w-full max-w-md text-center mx-auto">
-      <header className="text-white text-3xl font-semibold mb-8">Get In Touch</header>
+      <header className="text-white text-3xl font-semibold mb-2">Get In Touch</header>
+      <p className="text-gray-400 text-sm mb-8">Drop your email and I'll reach out.</p>
       {lastVisitedProject && (
         <p className="text-accent text-sm mb-4">
-          Have a question about {lastVisitedProject}? Mention it below.
+          Have a question about {lastVisitedProject}? I'll mention it when I reply.
         </p>
       )}
       {statusMessage && (<motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}><Alert message={statusMessage} /></motion.div>)}
-      <form onSubmit={handleSubmit} className="text-left space-y-4">
-        <div>
-          <h4 className="text-white text-sm mb-1">Name</h4>
-          <input
-            type="text"
-            required
-            placeholder="Your Name"
-            value={senderName}
-            onChange={(e) => setSenderName(e.target.value)}
-            className="w-full h-11 rounded-2xl bg-white/95 px-4 text-sm outline-none"
-          />
-        </div>
-        <div>
-          <h4 className="text-white text-sm mb-1">Email</h4>
-          <input
-            type="email"
-            required
-            placeholder="Your Email"
-            value={senderEmail}
-            onChange={(e) => setSenderEmail(e.target.value)}
-            className="w-full h-11 rounded-2xl bg-white/95 px-4 text-sm outline-none"
-          />
-        </div>
-        <div>
-          <h4 className="text-white text-sm mb-1">Subject</h4>
-          <input
-            type="text"
-            placeholder="Subject (optional)"
-            value={subject}
-            onChange={(e) => setSubject(e.target.value)}
-            className="w-full h-11 rounded-2xl bg-white/95 px-4 text-sm outline-none"
-          />
-        </div>
-        <div>
-          <h4 className="text-white text-sm mb-1">Message</h4>
-          <input
-            type="text"
-            required
-            placeholder="Your Message"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            className="w-full h-11 rounded-2xl bg-white/95 px-4 text-sm outline-none"
-          />
-        </div>
+      <form onSubmit={handleSubmit} className="flex gap-3">
+        <input
+          type="email"
+          required
+          placeholder="you@example.com"
+          value={senderEmail}
+          onChange={(e) => setSenderEmail(e.target.value)}
+          className="flex-1 h-12 rounded-full bg-white/95 px-5 text-sm outline-none"
+        />
         <motion.input whileTap={{ scale: 0.97 }}
           type="submit"
-          value="SEND MESSAGE"
-          className="w-full h-12 rounded-2xl bg-gradient-to-r from-[#a445b2] to-[#fa4299] text-white font-semibold tracking-wide cursor-pointer hover:opacity-90 transition-opacity"
+          value="Send"
+          className="h-12 px-6 rounded-full bg-gradient-to-r from-[#a445b2] to-[#fa4299] text-white font-semibold tracking-wide cursor-pointer hover:opacity-90 transition-opacity"
         />
       </form>
     </div>

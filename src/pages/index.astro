@@ -14,34 +14,42 @@ const skills = await fetchSkills();
 
 <Layout title="My Portfolio">
   <main>
-    <!-- Hero -->
-    <section id="home" class="min-h-screen flex items-center px-6 bg-surface">
-      <Reveal client:visible>
-      <div class="max-w-4xl mx-auto text-center pt-20">
-        <h5 class="text-accent font-medium mb-4 uppercase tracking-widest text-sm">
-          {profile.headline}
-        </h5>
-        <h1 class="text-5xl md:text-6xl font-black mb-6">{profile.fullName}</h1>
-        <p class="text-gray-400 max-w-2xl mx-auto mb-8 leading-relaxed">{profile.bio}</p>
-        <div class="flex items-center justify-center gap-4">
-          <a href="#projects" class="bg-accent text-black text-sm font-black uppercase tracking-widest px-6 py-3 rounded-full hover:opacity-90 transition-opacity">
-            View Projects
-          </a>
-          {profile.resumeUrl && (
-            
-      <a
-              href={profile.resumeUrl}
-              target="_blank"
-              rel="noreferrer"
-              class="border border-accentDark text-accentDark rounded-full px-6 py-3 text-sm hover:bg-white hover:text-accent transition-colors"
-            >
-              Download Resume
-            </a>
-          )}
+      <!-- Hero -->
+      <section id="home" class="min-h-[calc(100vh-4rem)] flex items-center px-6 bg-surface">
+        <Reveal client:visible>
+        <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div class="lg:col-span-7 text-left">
+            <h5 class="text-accent font-medium mb-4 uppercase tracking-widest text-sm">
+              {profile.headline}
+            </h5>
+            <h1 class="font-black mb-6 leading-tight" style="font-size: clamp(2.5rem, 5vw, 4.5rem);">
+              {profile.fullName}
+            </h1>
+            <p class="text-gray-400 max-w-xl mb-8 leading-relaxed">{profile.bio}</p>
+            <div class="flex flex-wrap items-center gap-4">
+              <a href="#projects" class="bg-accent text-black text-sm font-black uppercase tracking-widest px-6 py-3 rounded-full hover:opacity-90 transition-opacity">
+                View Projects
+              </a>
+              {profile.resumeUrl && (
+                <a
+                  href={profile.resumeUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  class="border border-accentDark text-accentDark rounded-full px-6 py-3 text-sm hover:bg-white hover:text-accent transition-colors"
+                >
+                  Download Resume
+                </a>
+              )}
+            </div>
+          </div>
+          <div class="lg:col-span-5 hidden lg:block">
+            <div class="relative aspect-square rounded-3xl overflow-hidden" style="background: radial-gradient(circle at 30% 30%, rgba(231,94,141,0.35), transparent 60%), radial-gradient(circle at 70% 70%, rgba(236,96,144,0.25), transparent 55%), #1f2122;">
+              <div class="absolute inset-0" style="background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 32px 32px;"></div>
+            </div>
+          </div>
         </div>
-      </div>
-      </Reveal>
-    </section>
+        </Reveal>
+      </section>
 
     <!-- Projects -->
     <section id="projects" class="py-24 px-6 bg-panel">
