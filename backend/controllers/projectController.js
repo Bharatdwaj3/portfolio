@@ -20,6 +20,7 @@ async function buildProjectList() {
             ...repo,
             featured: override?.featured || false,
             caseStudy: override?.caseStudy || '',
+            imageUrl: override?.imageUrl || null,
             liveUrl: override?.deployment?.liveUrl || null,
             deploymentStatus
         };
@@ -73,11 +74,11 @@ const getFeaturedProjects = async (req, res) => {
 
 const updateProjectOverride = async (req, res) => {
     try {
-        const { featured, caseStudy, deployment } = req.body;
+        const { featured, caseStudy, deployment, imageUrl } = req.body;
 
         const override = await ProjectOverride.findOneAndUpdate(
             { repoName: req.params.name },
-            { featured, caseStudy, deployment },
+            { featured, caseStudy, deployment, imageUrl },
             { new: true, upsert: true }
         );
 

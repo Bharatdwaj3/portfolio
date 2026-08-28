@@ -1,18 +1,19 @@
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap");
-
 @theme {
-  --color-surface: #27292a;
-  --color-panel: #1f2122;
+  --color-bg: #15161a;
+  --color-surface: #1c1e22;
+  --color-panel: #212327;
+  --color-card: #292b30;
+  --color-border: #3a3d43;
+  --color-text: #f2f2f0;
+  --color-text-muted: #d1d5db;
+  --color-text-faint: #9ca3af;
   --color-accent: #e75e8d;
-  --color-accentDark: #ec6090;
 }
-
 body {
-  background-color: var(--color-surface);
-  color: white;
+  background-color: var(--color-bg);
+  color: var(--color-text);
 }
-
 .font-script {
   font-family: 'Caveat', cursive;
 }

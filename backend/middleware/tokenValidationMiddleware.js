@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const admin = require("../../config/firebase_conn");
+const admin = require("../config/firebase_conn");
 
 const validateToken = asyncHandler(async (req, res, next) => {
     const authHeader = req.headers.authorization;

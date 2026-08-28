@@ -17,6 +17,10 @@ const projectOverrideSchema = new mongoose.Schema(
             type: String,
             default: ''
         },
+        imageUrl: {
+            type: String,
+            default: ''
+        },
         deployment: {
             platform: { type: String, enum: ['railway', 'render', null], default: null },
             projectId: { type: String },

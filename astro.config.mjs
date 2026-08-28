@@ -12,9 +12,9 @@ export default defineConfig({
     plugins: [tailwindcss()],
     server: {
       proxy: {
-        '/api/profile': { target: 'http://localhost:9001', rewrite: (path) => path.replace(/^\/api\/profile/, '') },
-        '/api/projects': { target: 'http://localhost:9003', rewrite: (path) => path.replace(/^\/api\/projects/, '') },
-        '/api/skills': { target: 'http://localhost:9002', rewrite: (path) => path.replace(/^\/api\/skills/, '') },
+        '/api/profile': { target: 'http://localhost:9000', rewrite: (path) => path.replace(/^\/api\/profile/, '/profile') },
+        '/api/projects': { target: 'http://localhost:9000', rewrite: (path) => path.replace(/^\/api\/projects/, '/projects') },
+        '/api/skills': { target: 'http://localhost:9000', rewrite: (path) => path.replace(/^\/api\/skills/, '/skills') },
       },
     },
   },

@@ -1,4 +1,4 @@
-const { buildProjectList } = require('../../projects/controllers/projectController');
+const { buildProjectList } = require('../controllers/projectController');
 
 // Was an HTTP call to the Projects service; now a direct function
 // call since everything runs in one process.

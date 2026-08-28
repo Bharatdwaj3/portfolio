@@ -53,12 +53,16 @@ export interface Project {
   language: string;
   stars: number;
   featured: boolean;
+  htmlUrl: string;
+  liveUrl: string | null;
+  imageUrl: string | null;
 }
 
 export interface ProjectDetail extends Project {
   htmlUrl: string;
   caseStudy: string;
   liveUrl: string | null;
+  imageUrl: string | null;
   deploymentStatus: string | null;
 }
 
