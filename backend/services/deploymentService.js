@@ -1,6 +1,5 @@
-// Pings a project's live URL and reports whether it's currently reachable.
-// Used by projectController's buildProjectList() when an override has a
-// deployment.liveUrl set.
+
+
 async function getDeploymentStatus(deployment) {
   if (!deployment?.liveUrl) {
     return { status: 'unknown', statusCode: null };

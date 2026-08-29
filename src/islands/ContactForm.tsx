@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
@@ -51,7 +52,7 @@ function Form() {
         <motion.input whileTap={{ scale: 0.97 }}
           type="submit"
           value="Send"
-          className="h-12 px-6 rounded-full bg-gradient-to-r from-[#a445b2] to-[#fa4299] text-white font-semibold tracking-wide cursor-pointer hover:opacity-90 transition-opacity"
+          className="h-12 px-6 rounded-full bg-linear-to-r from-[#a445b2] to-[#fa4299] text-white font-semibold tracking-wide cursor-pointer hover:opacity-90 transition-opacity"
         />
       </form>
     </div>

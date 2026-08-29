@@ -2,7 +2,6 @@ const PROFILE_BASE = import.meta.env.SSR ? `${import.meta.env.BACKEND_HOST || "h
 const PROJECTS_BASE = import.meta.env.SSR ? `${import.meta.env.BACKEND_HOST || "http://backend:9000"}/projects` : "/api/projects";
 const SKILLS_BASE = import.meta.env.SSR ? `${import.meta.env.BACKEND_HOST || "http://backend:9000"}/skills` : "/api/skills";
 
-// --- Profile ---
 export interface ProfileData {
   fullName: string;
   headline: string;
@@ -45,7 +44,6 @@ export async function sendMessage(payload: ContactMessage): Promise<Response> {
     body: JSON.stringify(payload),
   });
 }
-// --- Projects ---
 export interface Project {
   topics: string[];
   name: string;
@@ -78,7 +76,6 @@ export async function fetchProject(name: string): Promise<ProjectDetail> {
   return response.json();
 }
 
-// --- Skills ---
 export interface Skill {
   name: string;
   projectCount: number;

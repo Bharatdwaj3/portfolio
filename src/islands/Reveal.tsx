@@ -5,8 +5,7 @@ interface Props {
   children: ReactNode;
 }
 
-// Fades and slides content up once, when it scrolls into view.
-// Use inside any .astro section with client:visible.
+
 export default function Reveal({ children }: Props) {
   return (
     <motion.div

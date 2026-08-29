@@ -45,12 +45,6 @@ const Card = ({ name, description, language, stars, topics, htmlUrl, liveUrl, im
               <div className="h-2 rounded" style={{ width: "60%", background: "rgba(255,255,255,0.12)" }} />
               <div className="h-2 rounded" style={{ width: "30%", background: `hsl(${hue} 60% 55% / 0.35)` }} />
             </div>
-            <span
-              className="absolute bottom-3 left-3 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold uppercase"
-              style={{ background: `hsl(${hue} 50% 20%)`, color: `hsl(${hue} 70% 65%)` }}
-            >
-              {name.slice(0, 2)}
-            </span>
           </>
         )}
       </div>
@@ -61,12 +55,12 @@ const Card = ({ name, description, language, stars, topics, htmlUrl, liveUrl, im
           <p className="text-sm text-text-muted line-clamp-3 mb-4">{description}</p>
           <div className="flex flex-wrap gap-2 mb-4">
             {language && (
-              <span className="text-[13px] border border-accent/40 text-accent px-2.5 py-1 rounded-full">
+              <span className="text-[13px] bg-white/5 border border-white/10 text-gray-200 px-2.5 py-1 rounded-full">
                 {language}
               </span>
             )}
             {topics.slice(0, 4).map((topic) => (
-              <span key={topic} className="text-[13px] border border-border text-text-muted px-2.5 py-1 rounded-full">
+              <span key={topic} className="text-[13px] bg-white/5 border border-white/10 text-gray-200 px-2.5 py-1 rounded-full">
                 {topic}
               </span>
             ))}

@@ -30,7 +30,7 @@ export default function FooterContactForm() {
         placeholder="Email"
         value={senderEmail}
         onChange={(e) => setSenderEmail(e.target.value)}
-        className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-accent text-sm text-white placeholder:text-gray-500"
+        className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-accent text-sm text-white placeholder:text-gray-400"
       />
       <button
         type="submit"

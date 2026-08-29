@@ -1,41 +1,18 @@
 ---
-// src/pages/index.astro
+
 import Layout from "../layouts/Layout.astro";
 import ProjectsGrid from "../islands/ProjectsGrid";
 import Reveal from "../islands/Reveal";
 import { fetchProfile, fetchTestimonials, fetchProjects } from "../util/api";
 import { fetchSkills } from "../util/api";
+import { skillIconSlug } from "../util/skillCategories";
 
 const profile = await fetchProfile();
 const testimonials = await fetchTestimonials();
 const skills = await fetchSkills();
 
-const categoryMerge = { Databases: "Infrastructure", DevOps: "Infrastructure" };
-const skillsByCategory = skills.reduce((acc, skill) => {
-  const rawKey = skill.category || "Other";
-  const key = categoryMerge[rawKey] || rawKey;
-  if (!acc[key]) acc[key] = [];
-  acc[key].push(skill);
-  return acc;
-}, {});
-
-const SKILL_ICON_SLUGS = {
-  Java: "openjdk", JavaScript: "javascript", TypeScript: "typescript", C: "c",
-  PHP: "php", Python: "python", HTML: "html5", CSS: "css3", SCSS: "sass",
-  Blade: "laravel", Makefile: "gnubash", "yaml-configuration": "yaml",
-  reactjs: "react", react: "react", tailwindcss: "tailwindcss",
-  expressjs: "express", nodejs: "nodedotjs", "razorpay-api": "razorpay",
-  mongo: "mongodb", mongoose: "mongodb", docker: "docker", dockerfile: "docker",
-  helm: "helm", kubernetes: "kubernetes",
-};
-const skillIconSlug = (name) => SKILL_ICON_SLUGS[name] || name.toLowerCase().replace(/[^a-z0-9]/g, "");
 
 
-const processSteps = [
-  { title: "Discovery Call", description: "We talk through your goals, scope, and timeline to make sure we're aligned from day one." },
-  { title: "Design & Build", description: "I design and develop in focused sprints, sharing progress so you always know where things stand." },
-  { title: "Launch & Support", description: "Once it's live, I stick around for fixes, tweaks, and support as your project grows." },
-];
 ---
 
 <Layout title="My Portfolio">
@@ -58,108 +35,28 @@ const processSteps = [
           <h5 class="text-accent font-semibold mb-6 text-lg">
             {profile.headline}
           </h5>
-          <p class="text-gray-200 text-left max-w-xl mx-auto mb-10 leading-relaxed">{profile.bio}</p>
+          <p class="text-gray-200 text-left max-w-xl mx-auto mb-8 leading-relaxed">{profile.bio}</p>
           <div class="flex flex-wrap items-center justify-center gap-4">
             <a href="#projects" class="inline-flex items-center gap-2 bg-accent text-black hover:opacity-90 px-8 py-3.5 rounded-full text-sm font-semibold transition-all">
-              View Projects
+              View Work
             </a>
-            {profile.resumeUrl && (
-              <a
-              
-                href={profile.resumeUrl}
-                target="_blank"
-                rel="noreferrer"
-                class="border border-white/40 text-white rounded-full px-8 py-3.5 text-sm hover:bg-white hover:text-gray-900 transition-colors"
-              >
-                Download Resume
-              </a>
-            )}
+            <a href="#contact" class="border border-white/40 text-white rounded-full px-8 py-3.5 text-sm hover:bg-white hover:text-gray-900 transition-colors">
+              Hire Me
+            </a>
           </div>
         </div>
         </Reveal>
       </section>
-    <!-- How I Work -->
-    <section id="process" class="py-24 px-6 bg-panel">
+
+    <section id="projects" class="relative py-24 px-6 bg-surface overflow-hidden">
+      <div class="absolute left-1/2 top-0 -translate-x-1/2 w-[600px] h-[600px] bg-accent/10 rounded-full blur-[120px] pointer-events-none"></div>
       <Reveal client:visible>
-      <div class="max-w-6xl mx-auto">
-        <div class="max-w-2xl space-y-4 mb-16">
-          <span class="text-[11px] font-bold tracking-wider text-accent uppercase">
-            How I Work
-          </span>
-          <h2 class="text-3xl md:text-4xl font-extrabold leading-tight">
-            A clear process, built around you
-          </h2>
-          <p class="text-sm text-text-muted leading-relaxed">
-            From first call to launch day, you'll always know what's happening and why.
-          </p>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-6">
-          {processSteps.map((step, index) => (
-            <div class="relative bg-white/[0.06] border border-white/15 rounded-2xl p-8 hover:border-accent/50 transition-colors overflow-hidden">
-              <span class="absolute -top-4 -right-2 text-7xl font-extrabold text-white/5 select-none">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <span class="relative text-accent text-sm font-bold mb-3 block">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <h3 class="relative text-lg font-bold text-white mb-2">{step.title}</h3>
-              <p class="relative text-sm text-text leading-relaxed">{step.description}</p>
-            </div>
-          ))}
-        </div>
-
-        <div class="mt-12 text-center">
-          <a href="#contact" class="inline-block bg-accent text-black text-sm font-semibold px-8 py-3.5 rounded-full hover:opacity-90 transition-opacity">
-            Start a Project
-          </a>
-        </div>
-      </div>
-      </Reveal>
-    </section>
-
-    <!-- Projects -->
-    <section id="projects" class="py-24 px-6 bg-surface">
-      <Reveal client:visible>
-      <div class="max-w-6xl mx-auto">
+      <div class="relative max-w-6xl mx-auto">
         <ProjectsGrid client:load />
       </div>
       </Reveal>
     </section>
-
-    <!-- Skills -->
-    <section id="skills" class="py-24 px-6 bg-surface">
-      <Reveal client:visible>
-      <div class="max-w-6xl mx-auto">
-        <h4 class="text-2xl font-bold mb-8">
-          My Skills
-        </h4>
-        <div class="columns-1 md:columns-2 lg:columns-4 gap-6 [column-fill:_balance]">
-          {Object.entries(skillsByCategory).sort((a, b) => b[1].length - a[1].length).map(([category, categorySkills]) => (
-            <div class="break-inside-avoid mb-6 bg-panel border border-border rounded-2xl p-6 hover:border-accent/40 transition-colors">
-              <h5 class="text-xs font-bold uppercase tracking-widest text-accent mb-4">{category}</h5>
-              <div class="flex flex-col gap-3">
-                {categorySkills.map((skill) => (
-                  <span class="inline-flex items-center gap-2 bg-surface border border-border text-text-muted rounded-full pl-2 pr-3 py-2 text-xs w-fit">
-                    <img
-                      src={`https://cdn.simpleicons.org/${skillIconSlug(skill.name)}/ffffff`}
-                      alt=""
-                      class="w-4 h-4 shrink-0"
-                      loading="lazy"
-                      onerror="this.style.display='none'"
-                    />
-                    {skill.name}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      </Reveal>
-    </section>
-
-    <!-- Testimonials -->
+    
     {testimonials.length > 0 && (
       <section id="testimonials" class="py-24 px-6 bg-surface">
         <Reveal client:visible>
