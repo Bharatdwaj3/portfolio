@@ -1,9 +1,13 @@
-const PROFILE_BASE = import.meta.env.SSR ? `${import.meta.env.BACKEND_HOST || "http://backend:9000"}/profile` : "/api/profile";
-const PROJECTS_BASE = import.meta.env.SSR ? `${import.meta.env.BACKEND_HOST || "http://backend:9000"}/projects` : "/api/projects";
-const SKILLS_BASE = import.meta.env.SSR ? `${import.meta.env.BACKEND_HOST || "http://backend:9000"}/skills` : "/api/skills";
+function backendBase(): string {
+  if (!import.meta.env.SSR) return "/api";
+  if (import.meta.env.BACKEND_HOST) return import.meta.env.BACKEND_HOST;
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}/api`;
+  return "http://backend:9000";
+}
 
-export interface ProfileData {
-  fullName: string;
+const PROFILE_BASE = `${backendBase()}/profile`;
+const PROJECTS_BASE = `${backendBase()}/projects`;
+const SKILLS_BASE = `${backendBase()}/skills`;
   headline: string;
   bio: string;
   links: { label: string; url: string }[];
