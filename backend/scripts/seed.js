@@ -1,9 +1,9 @@
 require('dotenv').config({ path: require('path').resolve(__dirname, '../../.env') });
 require('../config/db_conn');
 const mongoose = require('mongoose');
-const Profile = require('../profile/models/profileModel');
-const SkillMeta = require('../skills/models/skillMetaModel');
-const ProjectOverride = require('../projects/models/projectOverrideModel');
+const Profile = require('../models/profileModel');
+const SkillMeta = require('../models/skillMetaModel');
+const ProjectOverride = require('../models/projectOverrideModel');
 
 // ─── Profile ──────────────────────────────────────────────────────────────
 const profileData = {
