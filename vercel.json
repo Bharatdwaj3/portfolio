@@ -5,8 +5,7 @@
             "framework": "astro"
         },
         "backend": {
-            "root": "backend",
-            "entrypoint": "server.js"
+            "root": "backend"
         }
     },
     "rewrites": [
