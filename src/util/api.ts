@@ -32,7 +32,7 @@ export interface ContactMessage {
 }
 
 export async function fetchProfile(): Promise<ProfileData> {
-  const response = await fetch(`${PROFILE_BASE}/`);
+  const response = await fetch(`${PROFILE_BASE}`);
   if (!response.ok) throw new Error("Failed to fetch profile");
   return response.json();
 }
@@ -72,7 +72,7 @@ export interface ProjectDetail extends Project {
 }
 
 export async function fetchProjects(): Promise<Project[]> {
-  const response = await fetch(`${PROJECTS_BASE}/`);
+  const response = await fetch(`${PROJECTS_BASE}`);
   if (!response.ok) throw new Error("Failed to fetch projects");
   return response.json();
 }
@@ -91,7 +91,7 @@ export interface Skill {
 }
 
 export async function fetchSkills(): Promise<Skill[]> {
-  const response = await fetch(`${SKILLS_BASE}/`);
+  const response = await fetch(`${SKILLS_BASE}`);
   if (!response.ok) throw new Error("Failed to fetch skills");
   return response.json();
 }
