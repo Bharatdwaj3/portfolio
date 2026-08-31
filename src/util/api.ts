@@ -8,6 +8,9 @@ function backendBase(): string {
 const PROFILE_BASE = `${backendBase()}/profile`;
 const PROJECTS_BASE = `${backendBase()}/projects`;
 const SKILLS_BASE = `${backendBase()}/skills`;
+
+export interface ProfileData {
+  fullName: string;
   headline: string;
   bio: string;
   links: { label: string; url: string }[];
@@ -48,6 +51,7 @@ export async function sendMessage(payload: ContactMessage): Promise<Response> {
     body: JSON.stringify(payload),
   });
 }
+
 export interface Project {
   topics: string[];
   name: string;
