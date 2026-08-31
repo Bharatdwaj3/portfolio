@@ -1,8 +1,7 @@
 function backendBase(): string {
   if (!import.meta.env.SSR) return "/api";
   if (import.meta.env.BACKEND_HOST) return import.meta.env.BACKEND_HOST;
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}/api`;
-  return "http://backend:9000";
+  throw new Error("BACKEND_HOST environment variable is not set");
 }
 
 const PROFILE_BASE = `${backendBase()}/profile`;

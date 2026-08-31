@@ -1,27 +1,8 @@
 {
-    "services": {
-        "frontend": {
-            "root": ".",
-            "framework": "astro"
-        },
-        "backend": {
-            "root": "backend"
-        }
-    },
     "rewrites": [
         {
-            "source": "/api(/.*)?",
-            "destination": {
-                "type": "service",
-                "service": "backend"
-            }
-        },
-        {
-            "source": "/(.*)",
-            "destination": {
-                "type": "service",
-                "service": "frontend"
-            }
+            "source": "/api/:path*",
+            "destination": "https://portfolio-production-5c84.up.railway.app/:path*"
         }
     ]
 }

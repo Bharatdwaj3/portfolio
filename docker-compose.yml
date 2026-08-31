@@ -29,6 +29,8 @@ services:
   portui:
     build: .
     container_name: portfolio-ui
+    environment:
+      BACKEND_HOST: http://backend:9000
     image: portui
     ports:
       - "9010:4321"
